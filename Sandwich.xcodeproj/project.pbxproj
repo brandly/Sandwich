@@ -13,11 +13,9 @@
 		850658C419D6AEF00020C5B2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 850658C319D6AEF00020C5B2 /* Images.xcassets */; };
 		850658C719D6AEF00020C5B2 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 850658C519D6AEF00020C5B2 /* LaunchScreen.xib */; };
 		850658D319D6AEF00020C5B2 /* SandwichTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 850658D219D6AEF00020C5B2 /* SandwichTests.swift */; };
-		850658E719D75F4E0020C5B2 /* Reddit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 850658E619D75F4E0020C5B2 /* Reddit.swift */; };
 		856DE68619D76AF100EF972E /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 856DE66519D76AC700EF972E /* Alamofire.framework */; };
-		856DE68719D76AF100EF972E /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 856DE67F19D76AD800EF972E /* SwiftyJSON.framework */; };
-		856DE68819D76B0800EF972E /* SwiftyJSON.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 856DE67F19D76AD800EF972E /* SwiftyJSON.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		856DE68919D76B0800EF972E /* Alamofire.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 856DE66519D76AC700EF972E /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		856DE68B19D77CA100EF972E /* Reddit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 856DE68A19D77CA100EF972E /* Reddit.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,34 +40,6 @@
 			remoteGlobalIDString = F8111E3E19A95C8B0040E7D1;
 			remoteInfo = AlamofireTests;
 		};
-		856DE67E19D76AD800EF972E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 856DE67719D76AD800EF972E /* SwiftyJSON.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 2E4FEFDB19575BE100351305;
-			remoteInfo = SwiftyJSON;
-		};
-		856DE68019D76AD800EF972E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 856DE67719D76AD800EF972E /* SwiftyJSON.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 2E4FEFE619575BE100351305;
-			remoteInfo = SwiftyJSONTests;
-		};
-		856DE68219D76AD800EF972E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 856DE67719D76AD800EF972E /* SwiftyJSON.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 2E4FF00219575CE600351305;
-			remoteInfo = "SwiftyJSON-OSX";
-		};
-		856DE68419D76AD800EF972E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 856DE67719D76AD800EF972E /* SwiftyJSON.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 2E4FF00C19575CE600351305;
-			remoteInfo = "SwiftyJSON-OSXTests";
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -79,7 +49,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				856DE68819D76B0800EF972E /* SwiftyJSON.framework in Copy Frameworks */,
 				856DE68919D76B0800EF972E /* Alamofire.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
@@ -98,9 +67,8 @@
 		850658CC19D6AEF00020C5B2 /* SandwichTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SandwichTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		850658D119D6AEF00020C5B2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		850658D219D6AEF00020C5B2 /* SandwichTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SandwichTests.swift; sourceTree = "<group>"; };
-		850658E619D75F4E0020C5B2 /* Reddit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reddit.swift; sourceTree = "<group>"; };
 		856DE65F19D76AC700EF972E /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
-		856DE67719D76AD800EF972E /* SwiftyJSON.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SwiftyJSON.xcodeproj; path = Alamofire/../SwiftyJSON/SwiftyJSON.xcodeproj; sourceTree = "<group>"; };
+		856DE68A19D77CA100EF972E /* Reddit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reddit.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,7 +77,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				856DE68619D76AF100EF972E /* Alamofire.framework in Frameworks */,
-				856DE68719D76AF100EF972E /* SwiftyJSON.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -129,7 +96,6 @@
 				850658B919D6AEF00020C5B2 /* Sandwich */,
 				850658CF19D6AEF00020C5B2 /* SandwichTests */,
 				850658B819D6AEF00020C5B2 /* Products */,
-				856DE67719D76AD800EF972E /* SwiftyJSON.xcodeproj */,
 				856DE65F19D76AC700EF972E /* Alamofire.xcodeproj */,
 			);
 			sourceTree = "<group>";
@@ -152,7 +118,7 @@
 				850658C319D6AEF00020C5B2 /* Images.xcassets */,
 				850658C519D6AEF00020C5B2 /* LaunchScreen.xib */,
 				850658BA19D6AEF00020C5B2 /* Supporting Files */,
-				850658E619D75F4E0020C5B2 /* Reddit.swift */,
+				856DE68A19D77CA100EF972E /* Reddit.swift */,
 			);
 			path = Sandwich;
 			sourceTree = "<group>";
@@ -187,17 +153,6 @@
 			children = (
 				856DE66519D76AC700EF972E /* Alamofire.framework */,
 				856DE66719D76AC700EF972E /* AlamofireTests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		856DE67819D76AD800EF972E /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				856DE67F19D76AD800EF972E /* SwiftyJSON.framework */,
-				856DE68119D76AD800EF972E /* SwiftyJSONTests.xctest */,
-				856DE68319D76AD800EF972E /* SwiftyJSON.framework */,
-				856DE68519D76AD800EF972E /* SwiftyJSON-OSXTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -274,10 +229,6 @@
 					ProductGroup = 856DE66019D76AC700EF972E /* Products */;
 					ProjectRef = 856DE65F19D76AC700EF972E /* Alamofire.xcodeproj */;
 				},
-				{
-					ProductGroup = 856DE67819D76AD800EF972E /* Products */;
-					ProjectRef = 856DE67719D76AD800EF972E /* SwiftyJSON.xcodeproj */;
-				},
 			);
 			projectRoot = "";
 			targets = (
@@ -300,34 +251,6 @@
 			fileType = wrapper.cfbundle;
 			path = AlamofireTests.xctest;
 			remoteRef = 856DE66619D76AC700EF972E /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		856DE67F19D76AD800EF972E /* SwiftyJSON.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = SwiftyJSON.framework;
-			remoteRef = 856DE67E19D76AD800EF972E /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		856DE68119D76AD800EF972E /* SwiftyJSONTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = SwiftyJSONTests.xctest;
-			remoteRef = 856DE68019D76AD800EF972E /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		856DE68319D76AD800EF972E /* SwiftyJSON.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = SwiftyJSON.framework;
-			remoteRef = 856DE68219D76AD800EF972E /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		856DE68519D76AD800EF972E /* SwiftyJSON-OSXTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "SwiftyJSON-OSXTests.xctest";
-			remoteRef = 856DE68419D76AD800EF972E /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -358,7 +281,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				850658BF19D6AEF00020C5B2 /* ViewController.swift in Sources */,
-				850658E719D75F4E0020C5B2 /* Reddit.swift in Sources */,
+				856DE68B19D77CA100EF972E /* Reddit.swift in Sources */,
 				850658BD19D6AEF00020C5B2 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
