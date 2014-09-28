@@ -10,7 +10,7 @@ import UIKit
 
 class ViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource {
     var tableView: UITableView!
-    var tableViewData = [String]()
+    var postData = [NSDictionary]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,10 +28,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate
     }
     
     func setPostData(data: [NSDictionary]) {
-        func getTitle(post: NSDictionary) -> String {
-            return post["title"] as String
-        }
-        self.tableViewData = data.map(getTitle)
+        self.postData = data
         self.tableView.reloadData()
     }
 
@@ -42,12 +39,19 @@ class ViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate
 
     // Table view data source delegate
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tableViewData.count
+        return postData.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let newCell: UITableViewCell = tableView.dequeueReusableCellWithIdentifier("myCell", forIndexPath: indexPath) as UITableViewCell
-        newCell.textLabel?.text = self.tableViewData[indexPath.row]
+        let post = self.postData[indexPath.row]
+        newCell.textLabel?.text = post["title"] as? String
+        
+        // TODO: why doesn't this work
+        if let ups = post["ups"] as? Int {
+            newCell.detailTextLabel?.text = String(ups)
+        }
+
         return newCell
     }
 }
