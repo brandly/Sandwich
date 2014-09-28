@@ -10,16 +10,23 @@ import UIKit
 
 class ViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource {
     var tableView: UITableView!
-    var posts = [RedditPost]()
     var refreshControl: UIRefreshControl!
+    var textField: UITextField!
+    var posts = [RedditPost]()
     var subreddit: String = "youtubehaiku"
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Table view stuff
+        // Sizing
         let topBarHeight: CGFloat = 20
-        self.tableView = UITableView(frame: CGRectMake(0, topBarHeight, self.view.bounds.width, self.view.bounds.height - topBarHeight), style: UITableViewStyle.Plain)
+        let textFieldHeight: CGFloat = 60
+        let spaceAboveTableView: CGFloat = topBarHeight + textFieldHeight
+        let textFieldPadding: CGFloat = 15
+        
+        
+        // Table view stuff
+        self.tableView = UITableView(frame: CGRectMake(0, spaceAboveTableView, self.view.bounds.width, self.view.bounds.height - spaceAboveTableView), style: UITableViewStyle.Plain)
         self.tableView.registerClass(DetailTableViewCell.self, forCellReuseIdentifier: "myCell")
         self.tableView.rowHeight = UITableViewAutomaticDimension
         
@@ -28,12 +35,24 @@ class ViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate
 
         self.view.addSubview(self.tableView)
         
+        
         // Refresh stuff
         self.refreshControl = UIRefreshControl()
         self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refersh")
         self.refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
+        
         self.tableView.addSubview(refreshControl)
         
+        
+        // Text field stuff
+        self.textField = UITextField(frame: CGRectMake(textFieldPadding, topBarHeight, (self.view.bounds.width - textFieldPadding * 2), spaceAboveTableView))
+        self.textField.text = self.subreddit
+        self.textField.delegate = self
+        
+        self.view.addSubview(self.textField)
+        
+        
+        // Goooooooo
         self.loadPosts()
     }
     
@@ -68,20 +87,16 @@ class ViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate
         return cell
     }
     
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        self.subreddit = textField.text
+        textField.resignFirstResponder()
+        self.loadPosts()
+        return true
+    }
+    
+    // When refreshControl fires
     func refresh(sender: AnyObject) {
         self.loadPosts()
     }
-}
-
-class DetailTableViewCell : UITableViewCell {
-    
-    override init(style: UITableViewCellStyle, reuseIdentifier: String!) {
-        super.init(style: UITableViewCellStyle.Subtitle, reuseIdentifier: reuseIdentifier)
-    }
-
-    required init(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
 }
 

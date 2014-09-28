@@ -15,6 +15,7 @@
 		856DE68619D76AF100EF972E /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 856DE66519D76AC700EF972E /* Alamofire.framework */; };
 		856DE68919D76B0800EF972E /* Alamofire.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 856DE66519D76AC700EF972E /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		856DE68B19D77CA100EF972E /* Reddit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 856DE68A19D77CA100EF972E /* Reddit.swift */; };
+		856DE69019D8834500EF972E /* DetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 856DE68F19D8834500EF972E /* DetailTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +68,7 @@
 		850658D219D6AEF00020C5B2 /* SandwichTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SandwichTests.swift; sourceTree = "<group>"; };
 		856DE65F19D76AC700EF972E /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
 		856DE68A19D77CA100EF972E /* Reddit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reddit.swift; sourceTree = "<group>"; };
+		856DE68F19D8834500EF972E /* DetailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +118,7 @@
 				850658C519D6AEF00020C5B2 /* LaunchScreen.xib */,
 				850658BA19D6AEF00020C5B2 /* Supporting Files */,
 				856DE68A19D77CA100EF972E /* Reddit.swift */,
+				856DE68F19D8834500EF972E /* DetailTableViewCell.swift */,
 			);
 			path = Sandwich;
 			sourceTree = "<group>";
@@ -278,6 +281,7 @@
 			files = (
 				850658BF19D6AEF00020C5B2 /* ViewController.swift in Sources */,
 				856DE68B19D77CA100EF972E /* Reddit.swift in Sources */,
+				856DE69019D8834500EF972E /* DetailTableViewCell.swift in Sources */,
 				850658BD19D6AEF00020C5B2 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -329,6 +333,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -375,6 +380,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
