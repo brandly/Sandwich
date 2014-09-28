@@ -59,13 +59,13 @@ class ViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let newCell: UITableViewCell = tableView.dequeueReusableCellWithIdentifier("myCell", forIndexPath: indexPath) as UITableViewCell
+        let cell: UITableViewCell = tableView.dequeueReusableCellWithIdentifier("myCell", forIndexPath: indexPath) as UITableViewCell
         let post = self.posts[indexPath.row]
         
-        newCell.textLabel?.text = post.title
-        newCell.detailTextLabel?.text = "+" + String(post.score)
+        cell.textLabel?.text = post.title
+        cell.detailTextLabel?.text = "+" + String(post.score)
 
-        return newCell
+        return cell
     }
     
     func refresh(sender: AnyObject) {
