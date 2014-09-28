@@ -64,6 +64,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate
     func setPosts(data: [RedditPost]) {
         self.refreshControl.endRefreshing()
         self.posts = data
+        self.tableView.scrollRectToVisible(CGRectMake(0, 0, 1, 1), animated: true)
         self.tableView.reloadData()
     }
 
