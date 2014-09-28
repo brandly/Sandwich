@@ -11,9 +11,12 @@ import UIKit
 class ViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource {
     var tableView: UITableView!
     var posts = [RedditPost]()
+    var refreshControl: UIRefreshControl!
+    var subreddit: String = "youtubehaiku"
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         // Table view stuff
         let topBarHeight: CGFloat = 20
         self.tableView = UITableView(frame: CGRectMake(0, topBarHeight, self.view.bounds.width, self.view.bounds.height - topBarHeight), style: UITableViewStyle.Plain)
@@ -25,10 +28,22 @@ class ViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate
 
         self.view.addSubview(self.tableView)
         
-        Reddit.getPosts("youtubehaiku", done: self.setPosts)
+        // Refresh stuff
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refersh")
+        self.refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
+        self.tableView.addSubview(refreshControl)
+        
+        self.loadPosts()
+    }
+    
+    func loadPosts() {
+        self.refreshControl.beginRefreshing()
+        Reddit.getPosts(self.subreddit, done: self.setPosts)
     }
     
     func setPosts(data: [RedditPost]) {
+        self.refreshControl.endRefreshing()
         self.posts = data
         self.tableView.reloadData()
     }
@@ -51,6 +66,10 @@ class ViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate
         newCell.detailTextLabel?.text = "+" + String(post.score)
 
         return newCell
+    }
+    
+    func refresh(sender: AnyObject) {
+        self.loadPosts()
     }
 }
 
