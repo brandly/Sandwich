@@ -8,9 +8,9 @@
 
 import UIKit
 
-
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class SubredditListController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource {
     var tableView: UITableView!
+    var textField: UITextField!
     var refreshControl: UIRefreshControl!
     var subreddits = [String]()
     
@@ -35,13 +35,25 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         self.tableView.addSubview(refreshControl)
         
+        self.textField = UITextField(frame: CGRectMake(0, 0, self.view.bounds.width, 40))
+        self.textField.placeholder = "Add a subreddit"
+        self.textField.delegate = self
+        
+        self.tableView.tableHeaderView = self.textField
+        
         // Goooooooo
         self.loadSubreddits()
     }
     
     func loadSubreddits() {
-//        self.refreshControl.beginRefreshing()
+        self.refreshControl.beginRefreshing()
         self.subreddits = ["youtubehaiku", "mildlyinteresting", "listentothis", "nba"]
+        self.refreshControl.endRefreshing()
+    }
+    
+    func addSubreddit(subreddit: String) {
+        self.subreddits.append(subreddit)
+        self.tableView.reloadData()
     }
     
     override func didReceiveMemoryWarning() {
@@ -65,6 +77,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let controller = SubredditController()
         controller.subreddit = subreddit
         self.navigationController?.pushViewController(controller, animated: true)
+    }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        self.addSubreddit(textField.text)
+        textField.text = ""
+        return true
     }
     
     // When refreshControl fires

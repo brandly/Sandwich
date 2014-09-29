@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let navCtrl = UINavigationController()
         self.window?.rootViewController = navCtrl
-        navCtrl.pushViewController(ViewController(), animated: false)
+        navCtrl.pushViewController(SubredditListController(), animated: false)
         
         self.window?.makeKeyAndVisible()
         self.window?.backgroundColor = UIColor.whiteColor()
