@@ -8,25 +8,21 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource {
+class SubredditController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var tableView: UITableView!
     var refreshControl: UIRefreshControl!
-    var textField: UITextField!
     var posts = [RedditPost]()
-    var subreddit: String = "youtubehaiku"
+    var subreddit: String! {
+        didSet {
+            self.title = self.subreddit
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Sizing
-        let topBarHeight: CGFloat = 20
-        let textFieldHeight: CGFloat = 60
-        let spaceAboveTableView: CGFloat = topBarHeight + textFieldHeight
-        let textFieldPadding: CGFloat = 15
-        
-        
+
         // Table view stuff
-        self.tableView = UITableView(frame: CGRectMake(0, spaceAboveTableView, self.view.bounds.width, self.view.bounds.height - spaceAboveTableView), style: UITableViewStyle.Plain)
+        self.tableView = UITableView(frame: CGRectMake(0, 0, self.view.bounds.width, self.view.bounds.height), style: UITableViewStyle.Plain)
         self.tableView.registerClass(DetailTableViewCell.self, forCellReuseIdentifier: "myCell")
         self.tableView.rowHeight = UITableViewAutomaticDimension
         
@@ -35,22 +31,12 @@ class ViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate
 
         self.view.addSubview(self.tableView)
         
-        
         // Refresh stuff
         self.refreshControl = UIRefreshControl()
         self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refersh")
         self.refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
         
         self.tableView.addSubview(refreshControl)
-        
-        
-        // Text field stuff
-        self.textField = UITextField(frame: CGRectMake(textFieldPadding, topBarHeight, (self.view.bounds.width - textFieldPadding * 2), spaceAboveTableView))
-        self.textField.text = self.subreddit
-        self.textField.delegate = self
-        
-        self.view.addSubview(self.textField)
-        
         
         // Goooooooo
         self.loadPosts()
@@ -64,7 +50,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate
     func setPosts(data: [RedditPost]) {
         self.refreshControl.endRefreshing()
         self.posts = data
-        self.tableView.scrollRectToVisible(CGRectMake(0, 0, 1, 1), animated: true)
+        self.tableView.scrollRectToVisible(CGRectMake(0, 0, 1, 1), animated: false)
         self.tableView.reloadData()
     }
 
@@ -88,11 +74,11 @@ class ViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate
         return cell
     }
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
-        self.subreddit = textField.text
-        textField.resignFirstResponder()
-        self.loadPosts()
-        return true
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let post = self.posts[indexPath.row]
+        let controller = PostController()
+        controller.post = post
+        self.navigationController?.pushViewController(controller, animated: true)
     }
     
     // When refreshControl fires
