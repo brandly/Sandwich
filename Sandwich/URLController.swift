@@ -14,7 +14,9 @@ class URLController: UIViewController {
     
     override func loadView() {
         super.loadView()
-        self.webView = UIWebView()
+        self.webView = UIWebView(frame: CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height))
+        self.view.backgroundColor = UIColor.whiteColor()
+        self.view.addSubview(self.webView)
     }
     
     override func viewDidLoad() {

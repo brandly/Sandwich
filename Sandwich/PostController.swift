@@ -40,6 +40,12 @@ class PostController: UIViewController {
         // author, score, num_comments, thumbnail, link to url
         
         self.view.addSubview(self.titleLabel)
+        
+        let linkButton: UIButton = UIButton(frame: CGRectMake(100, 400, 100, 50))
+        linkButton.backgroundColor = UIColor.greenColor()
+        linkButton.setTitle("View Link", forState: UIControlState.Normal)
+        linkButton.addTarget(self, action: "buttonAction:", forControlEvents: UIControlEvents.TouchUpInside)
+        self.view.addSubview(linkButton)
     }
     
     override func viewDidLoad() {
@@ -48,6 +54,10 @@ class PostController: UIViewController {
         
         self.titleLabel.text = self.post.title
         self.titleLabel.autoresize()
+    }
+    
+    func buttonAction(sender:UIButton!) {
+        self.viewLink()
     }
     
     func viewLink() {
