@@ -11,8 +11,8 @@ import UIKit
 class SubredditListController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource {
     var tableView: UITableView!
     var textField: UITextField!
-    var refreshControl: UIRefreshControl!
     var subreddits = [String]()
+    var storageKey: String = "SubredditList"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,13 +28,6 @@ class SubredditListController: UIViewController, UITextFieldDelegate, UITableVie
         
         self.view.addSubview(self.tableView)
         
-        // Refresh stuff
-        self.refreshControl = UIRefreshControl()
-        self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refersh")
-        self.refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
-        
-        self.tableView.addSubview(refreshControl)
-        
         self.textField = UITextField(frame: CGRectMake(0, 0, self.view.bounds.width, 40))
         self.textField.placeholder = "Add a subreddit"
         self.textField.delegate = self
@@ -46,14 +39,20 @@ class SubredditListController: UIViewController, UITextFieldDelegate, UITableVie
     }
     
     func loadSubreddits() {
-        self.refreshControl.beginRefreshing()
-        self.subreddits = ["youtubehaiku", "mildlyinteresting", "listentothis", "nba"]
-        self.refreshControl.endRefreshing()
+        var defaults = NSUserDefaults.standardUserDefaults()
+        if let storedSubreddits = defaults.objectForKey(self.storageKey) as? [String] {
+            self.subreddits = storedSubreddits
+        } else {
+            self.subreddits = []
+        }
     }
     
     func addSubreddit(subreddit: String) {
         self.subreddits.append(subreddit)
         self.tableView.reloadData()
+        
+        var defaults = NSUserDefaults.standardUserDefaults()
+        defaults.setObject(self.subreddits, forKey: self.storageKey)
     }
     
     override func didReceiveMemoryWarning() {
@@ -83,11 +82,6 @@ class SubredditListController: UIViewController, UITextFieldDelegate, UITableVie
         self.addSubreddit(textField.text)
         textField.text = ""
         return true
-    }
-    
-    // When refreshControl fires
-    func refresh(sender: AnyObject) {
-        self.loadSubreddits()
     }
 }
 
