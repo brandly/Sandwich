@@ -50,6 +50,12 @@ class PostController: UIViewController {
         self.titleLabel.autoresize()
     }
     
+    func viewLink() {
+        let controller = URLController()
+        controller.url = self.post.url
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
