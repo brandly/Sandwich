@@ -23,10 +23,13 @@ import UIKit
 class PostController: UIViewController {
     var post: RedditPost!
     var titleLabel: UILabel!
+    var thumbnailView: UIImageView!
+    
+    let padding: CGFloat = 15
+    let thumbnailSize: CGFloat = 60
     
     override func loadView() {
         super.loadView()
-        let padding: CGFloat = 15
         
         // I can't seem to assign it directly. There's probably a better way
         var headerHeight: CGFloat = 0
@@ -34,15 +37,17 @@ class PostController: UIViewController {
             headerHeight = height + 20.0
         }
 
-        self.titleLabel = UILabel(frame: CGRectMake(padding, headerHeight + padding, (self.view.bounds.width - padding * 2), 10))
+        let spaceLeftOfTitle: CGFloat = padding * 2 + thumbnailSize
+        self.titleLabel = UILabel(frame: CGRectMake(spaceLeftOfTitle, headerHeight + padding, (self.view.bounds.width - spaceLeftOfTitle), 10))
         self.titleLabel.numberOfLines = 0
-        
+        self.view.addSubview(self.titleLabel)
+
         // author, score, num_comments, thumbnail, link to url
         
-        self.view.addSubview(self.titleLabel)
-        
-        let linkButton: UIButton = UIButton(frame: CGRectMake(100, 400, 100, 50))
-        linkButton.backgroundColor = UIColor.greenColor()
+        let linkButton: UIButton = UIButton(frame: CGRectMake(padding, headerHeight + thumbnailSize + padding, thumbnailSize, 50))
+        linkButton.backgroundColor = UIColor.clearColor()
+        linkButton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+        linkButton.titleLabel!.font =  UIFont(name: "Helvetica", size: 14)
         linkButton.setTitle("View Link", forState: UIControlState.Normal)
         linkButton.addTarget(self, action: "buttonAction:", forControlEvents: UIControlEvents.TouchUpInside)
         self.view.addSubview(linkButton)
@@ -54,6 +59,15 @@ class PostController: UIViewController {
         
         self.titleLabel.text = self.post.title
         self.titleLabel.autoresize()
+
+        let url = NSURL.URLWithString(self.post.thumbnail)
+        var err: NSError?
+        let imageData :NSData = NSData.dataWithContentsOfURL(url, options: NSDataReadingOptions.DataReadingMappedIfSafe, error: &err)
+        let thumbnailImage = UIImage(data: imageData)
+        
+        self.thumbnailView = UIImageView(image: thumbnailImage)
+        self.thumbnailView.frame = CGRectMake(padding, self.titleLabel.frame.minY, thumbnailSize, thumbnailSize)
+        self.view.addSubview(self.thumbnailView)
     }
     
     func buttonAction(sender:UIButton!) {

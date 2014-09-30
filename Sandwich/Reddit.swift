@@ -42,7 +42,7 @@ class RedditPost {
     var score: Int
     var subreddit: String
     var subreddit_id: String
-    var thumbnail: String
+    var thumbnail: String!
     var title: String
     var url: String
     
