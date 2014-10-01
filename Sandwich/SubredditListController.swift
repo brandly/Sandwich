@@ -28,11 +28,15 @@ class SubredditListController: UIViewController, UITextFieldDelegate, UITableVie
         
         self.view.addSubview(self.tableView)
         
-        self.textField = UITextField(frame: CGRectMake(0, 0, self.view.bounds.width, 40))
+        let sidePadding: CGFloat = 15
+        let topPadding: CGFloat = sidePadding / 3
+        self.textField = UITextField(frame: CGRectMake(sidePadding, topPadding, (self.view.bounds.width - sidePadding * 2), 40))
         self.textField.placeholder = "Add a subreddit"
         self.textField.delegate = self
         
-        self.tableView.tableHeaderView = self.textField
+        let paddingView = UIView(frame: CGRectMake(0, 0, self.view.bounds.width, 50))
+        paddingView.addSubview(self.textField)
+        self.tableView.tableHeaderView = paddingView
         
         // Goooooooo
         self.loadSubreddits()
