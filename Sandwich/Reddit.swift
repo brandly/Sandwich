@@ -42,7 +42,7 @@ class RedditPost {
     var score: Int
     var subreddit: String
     var subreddit_id: String
-    var thumbnail: String!
+    var thumbnail: String?
     var title: String
     var url: String
     
@@ -55,8 +55,11 @@ class RedditPost {
         self.score = data["score"] as Int
         self.subreddit = data["subreddit"] as String
         self.subreddit_id = data["subreddit_id"] as String
-        self.thumbnail = data["thumbnail"] as String
         self.title = data["title"] as String
         self.url = data["url"] as String
+        
+        // Reddit returns "self" if there isn't one because idk
+        let thumbnail = data["thumbnail"] as String
+        self.thumbnail = thumbnail != "self" ? thumbnail : nil
     }
 }

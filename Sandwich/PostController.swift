@@ -60,14 +60,16 @@ class PostController: UIViewController {
         self.titleLabel.text = self.post.title
         self.titleLabel.autoresize()
 
-        let url = NSURL.URLWithString(self.post.thumbnail)
-        var err: NSError?
-        let imageData :NSData = NSData.dataWithContentsOfURL(url, options: NSDataReadingOptions.DataReadingMappedIfSafe, error: &err)
-        let thumbnailImage = UIImage(data: imageData)
-        
-        self.thumbnailView = UIImageView(image: thumbnailImage)
-        self.thumbnailView.frame = CGRectMake(padding, self.titleLabel.frame.minY, thumbnailSize, thumbnailSize)
-        self.view.addSubview(self.thumbnailView)
+        if let thumbnail = self.post.thumbnail {
+            let url = NSURL.URLWithString(self.post.thumbnail!)
+            var err: NSError?
+            let imageData :NSData = NSData.dataWithContentsOfURL(url, options: NSDataReadingOptions.DataReadingMappedIfSafe, error: &err)
+            let thumbnailImage = UIImage(data: imageData)
+            
+            self.thumbnailView = UIImageView(image: thumbnailImage)
+            self.thumbnailView.frame = CGRectMake(padding, self.titleLabel.frame.minY, thumbnailSize, thumbnailSize)
+            self.view.addSubview(self.thumbnailView)
+        }
     }
     
     func buttonAction(sender:UIButton!) {
