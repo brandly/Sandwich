@@ -10,7 +10,7 @@ import Foundation
 import Alamofire
 
 class Reddit {
-    class func getPosts(subreddit: String, done: (([RedditPost]) -> Void)) {
+    class func getPosts(subreddit: String, success: (([RedditPost]) -> Void)) {
         var url = "http://www.reddit.com/r/" + subreddit + "/.json"
         Alamofire.request(.GET, url)
             .responseJSON { (_, _, responseData, error) in
@@ -26,7 +26,7 @@ class Reddit {
                             return RedditPost(data: postDictionary)
                         }
                         var postData: [RedditPost] = children.map(parsePost)
-                        done(postData)
+                        success(postData)
                     }
                 }
         }

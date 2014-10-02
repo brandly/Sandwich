@@ -44,7 +44,7 @@ class SubredditController: UIViewController, UITableViewDelegate, UITableViewDat
     
     func loadPosts() {
         self.refreshControl.beginRefreshing()
-        Reddit.getPosts(self.subreddit, done: self.setPosts)
+        Reddit.getPosts(self.subreddit, success: self.setPosts)
     }
     
     func setPosts(data: [RedditPost]) {
