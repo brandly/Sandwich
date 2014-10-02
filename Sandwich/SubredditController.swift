@@ -75,11 +75,17 @@ class SubredditController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func getMorePosts() {
+        let spinner = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
+        spinner.startAnimating()
+        spinner.frame = CGRectMake(0, 0, 320, 44)
+        self.tableView.tableFooterView = spinner
+        
         Reddit.getPosts(self.subreddit, afterPost: self.posts.last, success: self.setMorePosts)
     }
     
     func setMorePosts(data: [RedditPost]) {
         self.posts += data
+        self.tableView.tableFooterView = nil
         self.doneSettingPosts()
     }
     

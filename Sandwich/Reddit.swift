@@ -72,7 +72,7 @@ class RedditPost {
         self.title = data["title"] as String
         self.url = data["url"] as String
         
-        // Reddit returns "self" if there isn't one because idk
+        // Reddit returns "self" for self posts, which isn't a url
         let thumbnail = data["thumbnail"] as String
         self.thumbnail = thumbnail != "self" ? thumbnail : nil
     }
