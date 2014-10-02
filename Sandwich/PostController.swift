@@ -38,12 +38,13 @@ class PostController: UIViewController {
         }
 
         let spaceLeftOfTitle: CGFloat = padding * 2 + thumbnailSize
-        self.titleLabel = UILabel(frame: CGRectMake(spaceLeftOfTitle, headerHeight + padding, (self.view.bounds.width - spaceLeftOfTitle), 10))
+        self.titleLabel = UILabel(frame: CGRectMake(spaceLeftOfTitle, headerHeight + padding, (self.view.bounds.width - spaceLeftOfTitle - padding), 10))
         self.titleLabel.numberOfLines = 0
         self.view.addSubview(self.titleLabel)
 
         // author, score, num_comments, thumbnail, link to url
         
+        // Assume there's a thumbnail
         let linkButton: UIButton = UIButton(frame: CGRectMake(padding, headerHeight + thumbnailSize + padding, thumbnailSize, 50))
         linkButton.backgroundColor = UIColor.clearColor()
         linkButton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
@@ -58,18 +59,27 @@ class PostController: UIViewController {
         self.view.backgroundColor = UIColor.whiteColor()
         
         self.titleLabel.text = self.post.title
-        self.titleLabel.autoresize()
-
+ 
+        // Make sure there's a thumbnail url
         if let thumbnail = self.post.thumbnail {
             let url = NSURL.URLWithString(self.post.thumbnail!)
-            var err: NSError?
-            let imageData :NSData = NSData.dataWithContentsOfURL(url, options: NSDataReadingOptions.DataReadingMappedIfSafe, error: &err)
-            let thumbnailImage = UIImage(data: imageData)
+            // Make sure the url is legit
+            if NSURLConnection.canHandleRequest(NSURLRequest(URL: url)) {
+                var err: NSError?
+                let imageData :NSData = NSData.dataWithContentsOfURL(url, options: NSDataReadingOptions.DataReadingMappedIfSafe, error: &err)
+                let thumbnailImage = UIImage(data: imageData)
+                
+                self.thumbnailView = UIImageView(image: thumbnailImage)
+                self.thumbnailView.frame = CGRectMake(padding, self.titleLabel.frame.minY, thumbnailSize, thumbnailSize)
+                self.view.addSubview(self.thumbnailView)
+            }
+        } else { // No thumbnail
+            let frame = self.titleLabel.frame
+            self.titleLabel.frame = CGRectMake(padding, CGRectGetMinY(frame), (self.view.bounds.width - padding * 2), 10)
+            self.titleLabel.autoresize()
             
-            self.thumbnailView = UIImageView(image: thumbnailImage)
-            self.thumbnailView.frame = CGRectMake(padding, self.titleLabel.frame.minY, thumbnailSize, thumbnailSize)
-            self.view.addSubview(self.thumbnailView)
         }
+        self.titleLabel.autoresize()
     }
     
     func buttonAction(sender:UIButton!) {
