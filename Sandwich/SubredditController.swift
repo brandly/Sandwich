@@ -17,6 +17,8 @@ class SubredditController: UIViewController, UITableViewDelegate, UITableViewDat
             self.title = self.subreddit
         }
     }
+    
+    var loadingPosts = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,15 +45,47 @@ class SubredditController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func loadPosts() {
+        if self.loadingPosts {
+            return
+        }
+        
+        self.loadingPosts = true
+        if self.posts.isEmpty {
+            self.getFrontPage()
+        } else {
+            self.getMorePosts()
+        }
+    }
+    
+    func getFrontPage() {
         self.refreshControl.beginRefreshing()
         Reddit.getPosts(self.subreddit, success: self.setPosts)
+    }
+    
+    func loadNewPosts() {
+        self.posts.removeAll()
+        self.getFrontPage()
     }
     
     func setPosts(data: [RedditPost]) {
         self.refreshControl.endRefreshing()
         self.posts = data
         self.tableView.scrollRectToVisible(CGRectMake(0, 0, 1, 1), animated: false)
+        self.doneSettingPosts()
+    }
+    
+    func getMorePosts() {
+        Reddit.getPosts(self.subreddit, afterPost: self.posts.last, success: self.setMorePosts)
+    }
+    
+    func setMorePosts(data: [RedditPost]) {
+        self.posts += data
+        self.doneSettingPosts()
+    }
+    
+    func doneSettingPosts() {
         self.tableView.reloadData()
+        self.loadingPosts = false
     }
 
     override func didReceiveMemoryWarning() {
@@ -80,10 +114,18 @@ class SubredditController: UIViewController, UITableViewDelegate, UITableViewDat
         controller.post = post
         self.navigationController?.pushViewController(controller, animated: true)
     }
+
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        let actualPosition: CGFloat = scrollView.contentOffset.y
+        let contentHeight: CGFloat = scrollView.contentSize.height - (self.view.bounds.size.height + 100)
+        if (actualPosition >= contentHeight) {
+            self.loadPosts()
+        }
+    }
     
     // When refreshControl fires
     func refresh(sender: AnyObject) {
-        self.loadPosts()
+        self.loadNewPosts()
     }
 }
 

@@ -10,9 +10,21 @@ import Foundation
 import Alamofire
 
 class Reddit {
+    class func getPostFullname(post: RedditPost) -> String {
+        return "t3_\(post.id)"
+    }
+    
     class func getPosts(subreddit: String, success: (([RedditPost]) -> Void)) {
+        Reddit.getPosts(subreddit, afterPost: nil, success: success)
+    }
+    
+    class func getPosts(subreddit: String, afterPost: RedditPost?, success: (([RedditPost]) -> Void)) {
         var url = "http://www.reddit.com/r/" + subreddit + "/.json"
-        Alamofire.request(.GET, url)
+        var params = [String: AnyObject]()
+        if let afterPost = afterPost {
+            params = ["after": Reddit.getPostFullname(afterPost)]
+        }
+        Alamofire.request(.GET, url, parameters: params)
             .responseJSON { (_, _, responseData, error) in
                 if let error = error {
                     println("ERROR", error);
@@ -37,6 +49,7 @@ class RedditPost {
     var author: String
     var domain: String
     var is_self: Bool
+    var id: String
     var num_comments: UInt
     var over_18: Bool
     var score: Int
@@ -49,6 +62,7 @@ class RedditPost {
     init(data: NSDictionary) {
         self.author = data["author"] as String
         self.domain = data["domain"] as String
+        self.id = data["id"] as String
         self.is_self = data["is_self"] as Bool
         self.num_comments = data["num_comments"] as UInt
         self.over_18 = data["over_18"] as Bool
