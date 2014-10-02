@@ -76,4 +76,16 @@ class RedditPost {
         let thumbnail = data["thumbnail"] as String
         self.thumbnail = thumbnail != "self" ? thumbnail : nil
     }
+    
+    func getValidThumbnailURL() -> NSURL? {
+        // Make sure there's a thumbnail url
+        if let thumbnail = self.thumbnail {
+            let url = NSURL.URLWithString(thumbnail)
+            // Make sure the url is legit
+            if NSURLConnection.canHandleRequest(NSURLRequest(URL: url)) {
+                return url
+            }
+        }
+        return nil
+    }
 }

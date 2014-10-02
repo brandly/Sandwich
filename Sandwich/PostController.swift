@@ -60,19 +60,14 @@ class PostController: UIViewController {
         
         self.titleLabel.text = self.post.title
  
-        // Make sure there's a thumbnail url
-        if let thumbnail = self.post.thumbnail {
-            let url = NSURL.URLWithString(self.post.thumbnail!)
-            // Make sure the url is legit
-            if NSURLConnection.canHandleRequest(NSURLRequest(URL: url)) {
-                var err: NSError?
-                let imageData :NSData = NSData.dataWithContentsOfURL(url, options: NSDataReadingOptions.DataReadingMappedIfSafe, error: &err)
-                let thumbnailImage = UIImage(data: imageData)
-                
-                self.thumbnailView = UIImageView(image: thumbnailImage)
-                self.thumbnailView.frame = CGRectMake(padding, self.titleLabel.frame.minY, thumbnailSize, thumbnailSize)
-                self.view.addSubview(self.thumbnailView)
-            }
+        if let url: NSURL = self.post.getValidThumbnailURL() {
+            var err: NSError?
+            let imageData :NSData = NSData.dataWithContentsOfURL(url, options: NSDataReadingOptions.DataReadingMappedIfSafe, error: &err)
+            let thumbnailImage = UIImage(data: imageData)
+            
+            self.thumbnailView = UIImageView(image: thumbnailImage)
+            self.thumbnailView.frame = CGRectMake(padding, self.titleLabel.frame.minY, thumbnailSize, thumbnailSize)
+            self.view.addSubview(self.thumbnailView)
         } else { // No thumbnail
             let frame = self.titleLabel.frame
             self.titleLabel.frame = CGRectMake(padding, CGRectGetMinY(frame), (self.view.bounds.width - padding * 2), 10)
