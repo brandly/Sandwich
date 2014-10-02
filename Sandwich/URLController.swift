@@ -25,7 +25,6 @@ class URLController: UIViewController {
     }
     
     func loadURL() {
-        println(self.url)
         let requestUrl = NSURL(string: self.url)
         let request = NSURLRequest(URL: requestUrl)
         self.webView.loadRequest(request)

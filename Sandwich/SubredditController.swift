@@ -57,6 +57,10 @@ class SubredditController: UIViewController, UITableViewDelegate, UITableViewDat
         }
     }
     
+    override func viewDidAppear(animated: Bool) {
+        self.tableView.reloadData()
+    }
+    
     func getFrontPage() {
         self.refreshControl.beginRefreshing()
         Reddit.getPosts(self.subreddit, success: self.setPosts)
@@ -105,11 +109,12 @@ class SubredditController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell: UITableViewCell = tableView.dequeueReusableCellWithIdentifier("myCell", forIndexPath: indexPath) as UITableViewCell
+        let cell: DetailTableViewCell = tableView.dequeueReusableCellWithIdentifier("myCell", forIndexPath: indexPath) as DetailTableViewCell
         let post = self.posts[indexPath.row]
         
-        cell.textLabel?.text = post.title
-        cell.detailTextLabel?.text = "+" + String(post.score)
+        cell.titleLabel.text = post.title
+//        cell.detailTextLabel?.text = "+" + String(post.score)
+        let size = cell.contentView.systemLayoutSizeFittingSize(UILayoutFittingCompressedSize)
 
         return cell
     }
